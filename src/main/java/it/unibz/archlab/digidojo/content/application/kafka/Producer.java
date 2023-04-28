@@ -16,11 +16,11 @@ public class Producer implements Broadcaster {
     @Value("${it.unibz.archlab.digidojo.content.kafka.producer.topics.messages}")
     private String messagesTopic;
 
-    @Value("${it.unibz.archlab.digidojo.content.kafka.producer.topics.post_written}")
-    private String postWrittenTopic;
+    @Value("${it.unibz.archlab.digidojo.content.kafka.producer.topics.posts_written}")
+    private String postsWrittenTopic;
 
-    @Value("${it.unibz.archlab.digidojo.content.kafka.producer.topics.post_erased}")
-    private String postErasedTopic;
+    @Value("${it.unibz.archlab.digidojo.content.kafka.producer.topics.posts_erased}")
+    private String postsErasedTopic;
 
 
     @Autowired
@@ -38,12 +38,12 @@ public class Producer implements Broadcaster {
     @Override
     public void emitPostWritten(Post post) {
         PostWritten postWrittenEvent = new PostWritten(post);
-        kafkaTemplate.send(postWrittenTopic, postWrittenEvent.toJson());
+        kafkaTemplate.send(postsWrittenTopic, postWrittenEvent.toJson());
     }
 
     @Override
     public void emitPostErased(Post post) {
         PostErased postErasedEvent = new PostErased(post);
-        kafkaTemplate.send(postErasedTopic, postErasedEvent.toJson());
+        kafkaTemplate.send(postsErasedTopic, postErasedEvent.toJson());
     }
 }
